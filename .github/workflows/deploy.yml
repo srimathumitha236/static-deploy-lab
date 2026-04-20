@@ -4,21 +4,18 @@ on:
   push:
     branches: [ main ]
 
-env:
-  SITE_NAME: MyStaticSite
+permissions:
+  contents: write   # IMPORTANT (without this it fails)
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout repo
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      # Deploy using prebuilt GitHub Action
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          publish_dir: ./
